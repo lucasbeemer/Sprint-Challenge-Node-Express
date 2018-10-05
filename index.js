@@ -57,5 +57,24 @@ server.get('/api/actions/', (req, res) => {
         });
 });
 
+server.post('/api/actions/', (req, res) => {
+    const add = req.body;
+    actionsDb.insert(add)
+        .then(res => res.status(201).json(res))
+        .catch(err => res.status(500).json(err));
+});
 
-server.listen(port, () => console.log(`server running on port ${port}`));
+server.put('/api/actions/:id', (req, res) => {
+    actionsDb.update(req.params.id, req.body)
+        .then(actions => res.status(200).json(actions))
+        .catch(err => res.status(500).json(err));
+});
+
+server.delete('/api/actions/:id', (req, res) => {
+    const id = req.params.id;
+    actionsDb.remove(id, req.body)
+        .then(res => res.status(200).json(res))
+        .catch(err => res.status(500).json(err));
+});
+
+server.listen(port, () => console.log(`SERVER RUNNING ON ${port}`));
