@@ -5,6 +5,9 @@
   "repository": "https://github.com/lucasbeemer/Sprint-Challenge-Node-Express.git",
   "author": "Lucas Beemer <you@example.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.3",
