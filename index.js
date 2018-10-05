@@ -35,5 +35,11 @@ server.put('/api/projects/:id/', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+server.delete('/api/projects/:id', (req, res) => {
+    const id = req.params.id;
+    projectsDb.remove(id, req.body)
+        .then(res => res.status(200).json(res))
+        .catch(err => res.status(500).json(err));
+});
 
 server.listen(port, () => console.log(`server running on port ${port}`));
