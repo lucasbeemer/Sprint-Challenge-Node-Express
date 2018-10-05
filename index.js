@@ -22,6 +22,7 @@ server.get('/api/projects/', (req, res) => {
         });
 });
 
+//// POST ////
 server.post('/api/projects/', (req, res) => {
     const add = req.body;
     projectsDb.insert(add)
@@ -29,17 +30,32 @@ server.post('/api/projects/', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+//// PUT ////
 server.put('/api/projects/:id/', (req, res) => {
     projectsDb.update(req.params.id, req.body)
         .then(projects => res.status(200).json(projects))
         .catch(err => res.status(500).json(err));
 });
 
-server.delete('/api/projects/:id', (req, res) => {
+//// DELETE ////
+server.delete('/api/projects/:id/', (req, res) => {
     const id = req.params.id;
     projectsDb.remove(id, req.body)
         .then(res => res.status(200).json(res))
         .catch(err => res.status(500).json(err));
 });
+
+server.get('/api/actions/', (req, res) => {
+    actionsDb
+        .get()
+        .then(actions => {
+            res.status(200).json(actions);
+        })
+        .catch(err => {
+            console.log('error', err);
+            res.status(500).json({ message: 'Cannot retrieve action data.'});
+        });
+});
+
 
 server.listen(port, () => console.log(`server running on port ${port}`));
