@@ -10,7 +10,7 @@ server.get('/', (req, res) => {
 	res.send('<h2>Server is running.</h2>');
 })
 
-server.get('/api/projects', (req, res) => {
+server.get('/api/projects/', (req, res) => {
     projectsDb
         .get()
         .then(projects => {
@@ -20,6 +20,19 @@ server.get('/api/projects', (req, res) => {
             console.error('error', err);
             res.status(500).json({ message: 'Cannot retrieve project data.' });
         });
+});
+
+server.post('/api/projects/', (req, res) => {
+    const add = req.body;
+    projectsDb.insert(add)
+        .then(res => res.status(201).json(res))
+        .catch(err => res.status(500).json(err));
+});
+
+server.put('/api/projects/:id/', (req, res) => {
+    projectsDb.update(req.params.id, req.body)
+        .then(projects => res.status(200).json(projects))
+        .catch(err => res.status(500).json(err));
 });
 
 
