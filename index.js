@@ -10,6 +10,7 @@ server.get('/', (req, res) => {
 	res.send('<h2>Server is running.</h2>');
 })
 
+//// GET ////
 server.get('/api/projects/', (req, res) => {
     projectsDb
         .get()
